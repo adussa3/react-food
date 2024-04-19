@@ -1,14 +1,22 @@
-import { useState } from "react";
-import { useFetch } from "../hooks/useFetch";
-import { fetchMeals } from "../http";
+import { useContext } from "react";
 import MealItem from "./MealItem";
+import { CartContext } from "../store/meal-cart-context";
 
 export default function Meals() {
-    const { fetchedData: meals, isFetching, error } = useFetch([], fetchMeals);
-    console.log(meals);
+    const { meals, isFetching, error } = useContext(CartContext);
+
+    if (error) {
+        return (
+            <div id="error">
+                <h2>Error</h2>
+                <p>{error.message}</p>
+            </div>
+        );
+    }
+
     return (
         <>
-            {isFetching && <p>Fetching meals...</p>}
+            {isFetching && <h1>Fetching meals...</h1>}
             {!isFetching && (
                 <ul id="meals">
                     {meals.map((meal) => {

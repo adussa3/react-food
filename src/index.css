@@ -61,6 +61,16 @@ h1 {
   gap: 1rem;
 }
 
+#error {
+  background-color: #f7d7db;
+  color: #da3849;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1.5rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
 .meal-item {
   background-color: #1d1a16;
   border-radius: 1rem;
@@ -104,7 +114,16 @@ h1 {
 }
 
 .meal-item-actions {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
   margin-bottom: 1.5rem;
+}
+
+.meal-item-quantity {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.5rem;
 }
 
 .cart h2 {
