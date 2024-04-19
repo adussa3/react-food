@@ -5,7 +5,7 @@ export async function fetchMeals() {
         const response = await axios.get("http://localhost:3000/meals");
         return response.data;
     } catch (error) {
-        console.log("Error:", error);
-        throw new Error("Failed to fetch meals data");
+        error.message = error.message ?? "Failed to fetch meals data";
+        throw new Error(error);
     }
 }
