@@ -4,8 +4,9 @@ import { CartContext } from "../store/meal-cart-context";
 import CartModal from "./CartModal";
 
 export default function Header() {
+    const { totalQuantity } = useContext(CartContext);
+
     const modal = useRef();
-    const { quantity } = useContext(CartContext);
 
     const handleOpenCartClick = () => {
         modal.current.open();
@@ -20,7 +21,7 @@ export default function Header() {
                     <h1>ReactFood</h1>
                 </div>
                 <button className="text-button" onClick={handleOpenCartClick}>
-                    Cart ({quantity})
+                    Cart ({totalQuantity})
                 </button>
             </header>
         </>
