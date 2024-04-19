@@ -1,12 +1,13 @@
 import { createContext, useState } from "react";
 import { fetchMeals } from "../http";
 import { useFetch } from "../hooks/useFetch";
-import MealItem from "../components/MealItem";
 
 export const CartContext = createContext({
     meals: [],
     cart: [],
-    getMealQuantity: 0,
+    totalQuantity: 0,
+    totalPrice: 0,
+    getMealQuantity: () => {},
     incrementMealQuantity: () => {},
     decrementMealQuantity: () => {},
     isFetching: false,
@@ -20,6 +21,15 @@ export default function CartContextProvider({ children }) {
     const totalMealQuantity = cartMealItems.reduce((currentQuantity, item) => {
         return currentQuantity + item.quantity;
     }, 0);
+
+    const totalMealPrice = cartMealItems.reduce((currentPrice, item) => {
+        // NOTE: +currentPrice casts the variable to a Number
+        //       it's the same as Number(currentPrice)
+        let newPrice = +currentPrice + item.quantity * item.price;
+
+        // NOTE: toFixed() returns a String!
+        return newPrice.toFixed(2);
+    }, "0.00");
 
     const handleGetMealQuantity = (id) => {
         const item = cartMealItems.find((item) => item.id === id);
@@ -70,7 +80,8 @@ export default function CartContextProvider({ children }) {
     const contextValue = {
         meals,
         cart: cartMealItems,
-        quantity: totalMealQuantity,
+        totalQuantity: totalMealQuantity,
+        totalPrice: totalMealPrice,
         getMealQuantity: handleGetMealQuantity,
         incrementMealQuantity: handleIncrementMealQuantity,
         decrementMealQuantity: handleDecrementMealQuantity,
