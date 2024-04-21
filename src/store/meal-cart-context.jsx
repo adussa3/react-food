@@ -7,6 +7,7 @@ export const CartContext = createContext({
     cart: [],
     totalQuantity: 0,
     totalPrice: 0,
+    clearCart: () => {},
     getMealQuantity: () => {},
     incrementMealQuantity: () => {},
     decrementMealQuantity: () => {},
@@ -30,6 +31,10 @@ export default function CartContextProvider({ children }) {
         // NOTE: toFixed() returns a String!
         return newPrice.toFixed(2);
     }, "0.00");
+
+    const handleClearCart = () => {
+        setCartMealItems([]);
+    };
 
     const handleGetMealQuantity = (id) => {
         const item = cartMealItems.find((item) => item.id === id);
@@ -82,6 +87,7 @@ export default function CartContextProvider({ children }) {
         cart: cartMealItems,
         totalQuantity: totalMealQuantity,
         totalPrice: totalMealPrice,
+        clearCart: handleClearCart,
         getMealQuantity: handleGetMealQuantity,
         incrementMealQuantity: handleIncrementMealQuantity,
         decrementMealQuantity: handleDecrementMealQuantity,
