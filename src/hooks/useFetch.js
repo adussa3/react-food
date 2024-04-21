@@ -24,7 +24,8 @@ export function useFetch(initialValue, fetchFn) {
                 const data = await fetchFn();
                 setFetchedData(data);
             } catch (error) {
-                setError({ message: error.message || "Failed to fetch data." });
+                error.message = error.message ?? "Failed to fetch data.";
+                setError(error);
             }
             setIsFetching(false);
         }
