@@ -139,6 +139,7 @@ h1 {
 .modal-actions {
   display: flex;
   justify-content: flex-end;
+  margin: 0.5rem 0;
   gap: 1rem;
 }
 
@@ -198,6 +199,7 @@ h1 {
 }
 
 .control {
+  width: 100%;
   margin: 0.5rem 0;
   display: flex;
   flex-direction: column;
@@ -208,9 +210,8 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-.control input {
+.control input, .control select {
   width: 100%;
-  max-width: 20rem;
   font: inherit;
   padding: 0.5rem;
   border-radius: 4px;

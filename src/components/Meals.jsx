@@ -9,14 +9,14 @@ export default function Meals() {
         return (
             <div id="error">
                 <h2>Error</h2>
-                <p>{error.message}</p>
+                <p style={{ whiteSpace: "pre-wrap" }}>{error.message}</p>
             </div>
         );
     }
 
     return (
         <>
-            {isFetching && <h1>Fetching meals...</h1>}
+            {isFetching && <h1 style={{ textAlign: "center" }}>Fetching meals...</h1>}
             {!isFetching && (
                 <ul id="meals">
                     {meals.map((meal) => {
