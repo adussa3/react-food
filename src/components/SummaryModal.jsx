@@ -67,9 +67,6 @@ const SummaryModal = forwardRef(function SummaryModal({}, ref) {
             */
             const customer = Object.fromEntries(formData.entries());
 
-            // Create the "name" field in the customer object by combining the customer's first and last name
-            customer.name = `${customer["first-name"]} ${customer["last-name"]}`;
-
             // Create orderData object for the updateOrder() HTTP request
             const orderData = { order: { customer, items: cart, total: totalPrice } };
 
@@ -90,8 +87,6 @@ const SummaryModal = forwardRef(function SummaryModal({}, ref) {
                 setSubmittedOrder(true);
             } catch (error) {
                 setErrorMessage(error.message);
-                console.log("HELLO");
-                console.log(errorMessage.message);
             }
         }
 

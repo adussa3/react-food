@@ -11,9 +11,9 @@ export default function CartItem({ item }) {
                 {item.name} - {item.quantity} x {currencyFormatter.format(item.price)}
             </p>
             <div className="cart-item-actions">
-                <button onClick={() => decrementMealQuantity(item.id)}>-</button>
+                <button onClick={() => decrementMealQuantity(item._id)}>-</button>
                 <p>{item.quantity}</p>
-                <button onClick={() => incrementMealQuantity(item.id)}>+</button>
+                <button onClick={() => incrementMealQuantity(item._id)}>+</button>
             </div>
         </li>
     );

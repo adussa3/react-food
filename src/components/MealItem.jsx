@@ -5,7 +5,7 @@ import { currencyFormatter } from "../util/formatting";
 export default function MealItem({ meal }) {
     const { incrementMealQuantity, decrementMealQuantity, getMealQuantity } = useContext(CartContext);
 
-    const quantity = getMealQuantity(meal.id);
+    const quantity = getMealQuantity(meal._id);
 
     return (
         <li className="meal-item">
@@ -21,18 +21,18 @@ export default function MealItem({ meal }) {
                 className="meal-item-actions"
             >
                 {quantity === 0 && (
-                    <button className="button" onClick={() => incrementMealQuantity(meal.id)}>
+                    <button className="button" onClick={() => incrementMealQuantity(meal._id)}>
                         Add to Cart
                     </button>
                 )}
 
                 {quantity > 0 && (
                     <>
-                        <button className="button" onClick={() => decrementMealQuantity(meal.id)}>
+                        <button className="button" onClick={() => decrementMealQuantity(meal._id)}>
                             -
                         </button>
-                        <span className="meal-item-quantity">{getMealQuantity(meal.id)}</span>
-                        <button className="button" onClick={() => incrementMealQuantity(meal.id)}>
+                        <span className="meal-item-quantity">{getMealQuantity(meal._id)}</span>
+                        <button className="button" onClick={() => incrementMealQuantity(meal._id)}>
                             +
                         </button>
                     </>

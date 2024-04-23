@@ -8,9 +8,9 @@ export const CartContext = createContext({
     totalQuantity: 0,
     totalPrice: 0,
     clearCart: () => {},
-    getMealQuantity: () => {},
-    incrementMealQuantity: () => {},
-    decrementMealQuantity: () => {},
+    getMealQuantity: (id) => {},
+    incrementMealQuantity: (id) => {},
+    decrementMealQuantity: (id) => {},
     isFetching: false,
     error: {},
 });
@@ -19,20 +19,20 @@ const cartMealItemsReducer = (state, action) => {
     const { type, payload } = action;
 
     const handleUpdateMealQuantity = (id, addToQuantity) => {
-        const foundItem = state.find((item) => item.id === id);
+        const foundItem = state.find((item) => item._id === id);
 
         if (foundItem) {
             const newQuantity = foundItem.quantity + addToQuantity;
 
             // meal item is in the cart and the new quantity is 0
             if (newQuantity === 0) {
-                return state.filter((item) => item.id !== id);
+                return state.filter((item) => item._id !== id);
             }
 
             // meal item is in the cart and the new quantity is NOT 0
             else {
                 return state.map((item) => {
-                    if (item.id === id) {
+                    if (item._id === id) {
                         return { ...item, quantity: newQuantity };
                     } else {
                         return item;
@@ -43,7 +43,7 @@ const cartMealItemsReducer = (state, action) => {
 
         // meal item is NOT in the cart and addToQuantity is 1
         else if (addToQuantity === 1) {
-            const meal = payload.meals.find((meal) => meal.id === id);
+            const meal = payload.meals.find((meal) => meal._id === id);
             meal.quantity = 1;
             return [...state, meal];
         }
@@ -74,13 +74,11 @@ export default function CartContextProvider({ children }) {
     }, 0);
 
     const totalMealPrice = cartMealItemsState.reduce((currentPrice, item) => {
-        // NOTE: +currentPrice casts the variable to a Number
-        //       it's the same as Number(currentPrice)
-        let newPrice = +currentPrice + item.quantity * item.price;
+        let newPrice = currentPrice + item.quantity * item.price;
 
-        // NOTE: toFixed() returns a String!
-        return newPrice.toFixed(2);
-    }, "0.00");
+        // NOTE: toFixed() returns a String! "+" casts newPrice back to a Number
+        return +newPrice.toFixed(2);
+    }, 0);
 
     const handleClearCart = () => {
         cartMealItemsDispatch({
@@ -89,7 +87,7 @@ export default function CartContextProvider({ children }) {
     };
 
     const handleGetMealQuantity = (id) => {
-        const item = cartMealItemsState.find((item) => item.id === id);
+        const item = cartMealItemsState.find((item) => item._id === id);
         return item ? item.quantity : 0;
     };
 

@@ -37,7 +37,7 @@ const CartModal = forwardRef(function CartModal({}, ref) {
                 <h2>Your Cart</h2>
                 <ul>
                     {cart.map((item) => (
-                        <CartItem key={item.id} item={item} />
+                        <CartItem key={item._id} item={item} />
                     ))}
                 </ul>
                 <p className="cart-total">{currencyFormatter.format(totalPrice)}</p>
