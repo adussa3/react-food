@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../store/meal-cart-context";
+import { currencyFormatter } from "../util/formatting";
 
 export default function MealItem({ meal }) {
     const { incrementMealQuantity, decrementMealQuantity, getMealQuantity } = useContext(CartContext);
@@ -10,7 +11,7 @@ export default function MealItem({ meal }) {
         <li className="meal-item">
             <img src={`http://localhost:3000/${meal.image}`} alt="" />
             <h3>{meal.name}</h3>
-            <p className="meal-item-price">${meal.price}</p>
+            <p className="meal-item-price">{currencyFormatter.format(meal.price)}</p>
             <p className="meal-item-description">{meal.description}</p>
 
             <div

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../store/meal-cart-context";
+import { currencyFormatter } from "../util/formatting";
 
 export default function CartItem({ item }) {
     const { incrementMealQuantity, decrementMealQuantity } = useContext(CartContext);
@@ -7,7 +8,7 @@ export default function CartItem({ item }) {
     return (
         <li className="cart-item">
             <p>
-                {item.name} - {item.quantity} x ${item.price}
+                {item.name} - {item.quantity} x {currencyFormatter.format(item.price)}
             </p>
             <div className="cart-item-actions">
                 <button onClick={() => decrementMealQuantity(item.id)}>-</button>

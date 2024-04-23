@@ -2,6 +2,7 @@ import { forwardRef, useContext, useImperativeHandle, useRef, useState } from "r
 import { createPortal } from "react-dom";
 import { CartContext } from "../store/meal-cart-context";
 import { updateOrders } from "../http";
+import { currencyFormatter } from "../util/formatting";
 
 const SummaryModal = forwardRef(function SummaryModal({}, ref) {
     const { cart, totalPrice, clearCart } = useContext(CartContext);
@@ -120,7 +121,7 @@ const SummaryModal = forwardRef(function SummaryModal({}, ref) {
     return createPortal(
         <dialog className="modal" ref={dialog} onClose={handleClose}>
             <h2>Checkout</h2>
-            <p>Total Amount: ${totalPrice}</p>
+            <p>Total Amount: {currencyFormatter.format(totalPrice)}</p>
 
             <form onSubmit={handleSubmit}>
                 <div className="control-row">

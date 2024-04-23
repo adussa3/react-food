@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { CartContext } from "../store/meal-cart-context";
 import CartItem from "./CartItem";
 import SummaryModal from "./SummaryModal";
+import { currencyFormatter } from "../util/formatting";
 
 const CartModal = forwardRef(function CartModal({}, ref) {
     const { cart, totalPrice } = useContext(CartContext);
@@ -39,7 +40,7 @@ const CartModal = forwardRef(function CartModal({}, ref) {
                         <CartItem key={item.id} item={item} />
                     ))}
                 </ul>
-                <p className="cart-total">${totalPrice}</p>
+                <p className="cart-total">{currencyFormatter.format(totalPrice)}</p>
                 <div className="modal-actions">
                     <button className="text-button" onClick={handleClose}>
                         Close
