@@ -19,9 +19,17 @@ if (process.env.NODE_ENV !== "production") {
     dotenv.config();
 }
 
+/***** Imports *****/
+
 import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+
+//
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Schemas
 import Meal from './model/meal.js';
 import Order from './model/order.js';
 
@@ -60,13 +68,28 @@ app.use((req, res, next) => {
     next();
 });
 
+// Create path to directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from directory
+const frontendFiles = path.join(__dirname, '../dist');
+app.use(express.static(frontendFiles))
+
 /***** Routing *****/
 
+// Home
+app.get("/", (req, res) => {
+    res.sendFile(path.join(frontendFiles, 'index.html'))
+});
+
+// Get meals from Mongo Database
 app.get('/meals', async (req, res) => {
     const meals = await Meal.find({});
     res.json(meals);
 });
 
+// Store order date to Mongo Database
 app.post('/orders', async (req, res) => {
     const orderData = req.body.order;
 
